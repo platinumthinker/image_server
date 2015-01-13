@@ -1,17 +1,15 @@
-#ifndef EFFECT_H
-#define EFFECT_H
+#ifndef IMAGE_H
+#define IMAGE_H
 
 class Image
 {
-    public:
+    private:
         unsigned char *pixels;
         unsigned int bytes, channels;
-}
-
-class Effect
-{
     public:
+        int receive(int fd);
+        void send(int fd);
         static virtual int process(Image*);
 }
 
-#endif //EFFECT_H
+#endif //IMAGE_H
