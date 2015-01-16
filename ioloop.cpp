@@ -18,6 +18,9 @@ int IOLoop::start_listen()
     servaddr.sin_addr.s_addr = htons(INADDR_ANY);
     servaddr.sin_port = htons(listen_port);
 
+    int optval = 1;
+    setsockopt(listen_fd, SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval));
+
     if(bind(listen_fd, (struct sockaddr *) &servaddr, sizeof(servaddr)))
     {
         perror("bind");
