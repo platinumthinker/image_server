@@ -1,12 +1,12 @@
 #ifndef DESATURATE_H
 #define DESATURATE_H
 
-#include "effect.h"
+#include "image.h"
 
-class Desaturate:Effect
+class Desaturate : public Image
 {
     public:
-        static int process(Image*);
-}
+        int process();
+};
 
 #endif // DESATURATE_H

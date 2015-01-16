@@ -8,13 +8,19 @@ int Image::receive(int fd)
         return 1;
     }
 
-    this->pixels = new unsigned int[this->bytes];
+    this->pixels = new unsigned char[this->bytes];
 
     return this->bytes != recv(fd, this->pixels, this->bytes, 0);
 }
 
-void Image::send(int fd)
+void Image::send_im(int fd)
 {
     send(fd, &(this->bytes), sizeof(int), 0);
     send(fd, this->pixels, this->bytes, 0);
+}
+
+Image::~Image()
+{
+    if (bytes > 0)
+        delete[] pixels;
 }

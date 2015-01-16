@@ -1,10 +1,11 @@
 #include "ioloop.h"
+#include <cstring>
 
 int IOLoop::start_listen()
 {
     struct sockaddr_in servaddr;
 
-    listen_fd = socket(AF_INET, SOCK_STREAM, 0);
+    int listen_fd = socket(AF_INET, SOCK_STREAM, 0);
     if(listen_fd < 0)
     {
         perror("socket");
@@ -24,7 +25,7 @@ int IOLoop::start_listen()
     }
 
     listen(listen_fd, MAX_CLIENT);
-    std::cout << "Start listen on " << LISTEN_PORT << " port\n";
+    std::cout << "Start listen on " << listen_port << " port\n";
 
     return listen_fd;
 }
@@ -32,23 +33,22 @@ int IOLoop::start_listen()
 void IOLoop::loop()
 {
     int fd, listen_fd;
-    listen_fd = listen_port();
+    listen_fd = start_listen();
 
     for ever
     {
         fd = accept(listen_fd, (struct sockaddr*) NULL, NULL);
-        std::thread th([fd]()
-            {
-                Image im;
-                if( im.receive(fd) )
-                {
-                    std::cout << "Don't receive image from " << fd << "\n";
-                    return 0;
-                }
-                std::cout << "Receive image from " << fd << "\n";
-
-                im.send(fd);
-                std::cout << "Send image in " << fd << "\n";
-            }
+        Image *im = new Desaturate();
+        if( im->receive(fd) )
+        {
+            std::cout << "Don't receive image from " << fd << "\n";
+            continue;
+        }
+        std::cout << "Receive image from " << fd << "\n";
+        im->process();
+        std::cout << "Process image from " << fd << "\n";
+        im->send_im(fd);
+        std::cout << "Send image in " << fd << "\n";
+        delete im;
     }
 }

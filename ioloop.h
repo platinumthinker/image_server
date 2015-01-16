@@ -1,10 +1,10 @@
 #ifndef IOLOOP_H
 #define IOLOOP_H
 
-#include <sys/types.h>
-#include <sys/socket.h>
+#include <iostream>
 #include <string>
-#include "effect.h"
+#include "image.h"
+#include "desaturate.h"
 
 #define MAX_CLIENT 10
 #define ever (;;)
@@ -17,6 +17,6 @@ class IOLoop
     private:
         int listen_port;
         int start_listen();
-}
+};
 
 #endif

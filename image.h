@@ -1,15 +1,21 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
 class Image
 {
-    private:
+    protected:
         unsigned char *pixels;
-        unsigned int bytes, channels;
+        unsigned int bytes, channels = 4;
     public:
         int receive(int fd);
-        void send(int fd);
-        static virtual int process(Image*);
-}
+        void send_im(int fd);
+        virtual int process() = 0;
+        virtual ~Image();
+};
 
 #endif //IMAGE_H

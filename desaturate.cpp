@@ -1,16 +1,16 @@
 #include "desaturate.h"
 
-static int Desaturate:process(Image* image)
+int Desaturate::process()
 {
-    unsigned char* pixels = image->pixels;
-    int i, count_pixel = image->bytes/channels;
+    unsigned char* pix = pixels;
+    int i, count_pixel = bytes/channels;
 
-    for (i = 0; i < count_pixel; i++, pixels += count_pixel)
+    for (i = 0; i < count_pixel; i++, pix += count_pixel)
     {
-        unsigned char gray = (*pixels + *(pixels + 1) + *(pixels + 2)) / 3;
-        *pixels       = gray;
-        *(pixels + 1) = gray;
-        *(pixels + 2) = gray;
+        unsigned char gray = (*pix + *(pix + 1) + *(pix + 2)) / 3;
+        *pix = gray;
+        *(pix + 1) = gray;
+        *(pix + 2) = gray;
     }
 
     return 0;
