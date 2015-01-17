@@ -38,6 +38,10 @@ void IOLoop::loop()
     int fd, listen_fd;
     listen_fd = start_listen();
 
+    CL_Helper helper;
+    helper.init();
+    helper.buildProgramFromFile("cl/desaturate.cl");
+
     for ever
     {
         fd = accept(listen_fd, (struct sockaddr*) NULL, NULL);
@@ -48,8 +52,16 @@ void IOLoop::loop()
             continue;
         }
         std::cout << "Receive image from " << fd << "\n";
-        im->process();
+        im->debug_print();
+        /* im->process(); */
+        if ( im->process_gpu(&helper) )
+        {
+            std::cout << "Don't process image!" << "\n";
+            continue;
+        }
+
         std::cout << "Process image from " << fd << "\n";
+        im->debug_print();
         im->send_im(fd);
         std::cout << "Send image in " << fd << "\n";
         delete im;

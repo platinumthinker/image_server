@@ -1,8 +1,6 @@
 #ifndef IOLOOP_H
 #define IOLOOP_H
 
-#include <iostream>
-#include <string>
 #include "image.h"
 #include "desaturate.h"
 
