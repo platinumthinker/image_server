@@ -63,7 +63,8 @@ void IOLoop::loop()
         std::cout << "Process image from " << fd << "\n";
         im->debug_print();
         im->send_im(fd);
-        std::cout << "Send image in " << fd << "\n";
+        std::cout << "Send image in " << fd << "\n" <<
+            "============================================================\n";
         delete im;
     }
 }

@@ -21,16 +21,19 @@ void Image::send_im(int fd)
 
 void Image::debug_print()
 {
-    int pixels_length = bytes / channels;
     std::cout << "Bytes: " << bytes<< "\n";
     std::cout << "Size: " << bytes / channels << "\n";
-    std::cout << "Pixels:" << "\n";
-    for (int i = 0; i < pixels_length; i++) {
-        std::cout << int(pixels[i * 4    ]) << " " <<
-                     int(pixels[i * 4 + 1]) << " " <<
-                     int(pixels[i * 4 + 2]) << " " <<
-                     int(pixels[i * 4 + 3]) << " " << "\n";
-    }
+    std::cout << "First pixel:";
+    std::cout << int(pixels[0]) << " " << int(pixels[1]) << " " <<
+                 int(pixels[2]) << " " << int(pixels[3]) << " " << "\n";
+    /* int pixels_length = bytes / channels; */
+    /* std::cout << "Pixels:" << "\n"; */
+    /* for (int i = 0; i < pixels_length; i++) { */
+    /*     std::cout << int(pixels[i * 4    ]) << " " << */
+    /*                  int(pixels[i * 4 + 1]) << " " << */
+    /*                  int(pixels[i * 4 + 2]) << " " << */
+    /*                  int(pixels[i * 4 + 3]) << " " << "\n"; */
+    /* } */
 }
 
 Image::~Image()
